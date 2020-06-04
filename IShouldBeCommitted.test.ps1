@@ -1,30 +1,30 @@
 $ScriptDir = Split-Path -parent $MyInvocation.MyCommand.Path
 Import-Module -Name $ScriptDir\IShouldBeCommitted.psm1
  
-Describe "TryUpdateCode" {
+Describe "TryUpdate" {
     InModuleScope IShouldBeCommitted {
-        Context "When UpdateCode is successfull" {
-            Mock UpdateCode {return 0} -Verifiable
+        Context "When Update is successfull" {
+            Mock Update {return 0} -Verifiable
     
-            $result = TryUpdateCode
+            $result = TryUpdate
     
-            It "calls UpdateCode" {
+            It "calls Update" {
                 Assert-VerifiableMock
             }
             It "reports success" {
-                $result | Should -Be "Successfully updated code..."
+                $result | Should -Be "Successfully Updated..."
             }
         }
-        Context "When UpdateCode is unsuccessful" {
-            Mock UpdateCode {return 1} -Verifiable
+        Context "When Update is unsuccessful" {
+            Mock Update {return 1} -Verifiable
     
-            $result = TryUpdateCode
+            $result = TryUpdate
     
-            It "calls UpdateCode" {
+            It "calls Update" {
                 Assert-VerifiableMock
             }
             It "reports failure" {
-                $result | Should -Be "Failed to update code!"
+                $result | Should -Be "Failed to Update!"
             }
         }
     }
