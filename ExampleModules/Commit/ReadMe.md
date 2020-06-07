@@ -5,6 +5,9 @@ A module that defines an implementation for committing to the local repository.
 Commands:
 ---------
 ```
-invoke-pester -script .\Commit.test.ps1 -CodeCoverage `
-@{Path = 'Commit.psm1'; Function = 'Commit'}
+# To run tests for this module
+.\Misc\RunLocalTests.ps1
+
+# To run tests for this modules and all modules beneath it recursively
+.\Misc\RunAllTestsRecursive.ps1
 ```

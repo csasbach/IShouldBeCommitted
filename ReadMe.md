@@ -5,16 +5,12 @@ A framework for continuous scripted updating, building, static analysis, testing
 Commands:
 ---------
 ```
-.\Misc\UninstallPester.ps1
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 
-Install-Module PowerShellGet -RequiredVersion 2.2.4 -SkipPublisherCheck
-Install-module -name Pester -RequiredVersion 4.10.1
+# To Initialize Pester
+.\Misc\InitializePesterEnvironment.ps1
 
-invoke-pester -script .\IShouldBeCommitted.test.ps1 -CodeCoverage `
-@{Path = 'IShouldBeCommitted.psm1'; Function = 'TryUpdate'}, `
-@{Path = 'IShouldBeCommitted.psm1'; Function = 'TryBuild'}, `
-@{Path = 'IShouldBeCommitted.psm1'; Function = 'TryAnalyze'}, `
-@{Path = 'IShouldBeCommitted.psm1'; Function = 'TryTest'}, `
-@{Path = 'IShouldBeCommitted.psm1'; Function = 'TryCommit'}, `
-@{Path = 'IShouldBeCommitted.psm1'; Function = 'TryPush'}
+# To run tests for this module
+.\Misc\RunLocalTests.ps1
+
+# To run tests for this modules and all modules beneath it recursively
+.\Misc\RunAllTestsRecursive.ps1
 ```
