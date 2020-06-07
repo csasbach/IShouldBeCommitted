@@ -1,3 +1,7 @@
+Commit
+======
+A module that defines an implementation for committing to the local repository.
+
 Commands:
 ---------
 ```

@@ -1,3 +1,7 @@
+Analyze
+======
+A module that defines an implementation for running static code analysis tools against the repository.
+
 Commands:
 ---------
 ```

@@ -1,3 +1,7 @@
+Build
+======
+A module that defines an implementation for building the code in the repository.
+
 Commands:
 ---------
 ```

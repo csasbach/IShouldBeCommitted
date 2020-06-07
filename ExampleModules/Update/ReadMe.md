@@ -1,3 +1,7 @@
+Update
+======
+A module that defines an implementation for updating the repository.
+
 Commands:
 ---------
 ```

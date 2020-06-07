@@ -1,3 +1,7 @@
+Push
+======
+A module that defines an implementation for pushing code to the remote repository.
+
 Commands:
 ---------
 ```

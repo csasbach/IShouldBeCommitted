@@ -1,3 +1,7 @@
+Test
+======
+A module that defines an implementation for testing the repository.
+
 Commands:
 ---------
 ```
