@@ -5,7 +5,7 @@ A framework for continuous scripted updating, building, static analysis, testing
 Commands:
 ---------
 ```
-.\Misc\uninstall-pester.ps1
+.\Misc\UninstallPester.ps1
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 
 Install-Module PowerShellGet -RequiredVersion 2.2.4 -SkipPublisherCheck
 Install-module -name Pester -RequiredVersion 4.10.1
