@@ -1,3 +1,38 @@
+param(
+    [parameter(Position=0,Mandatory=$false)][string]$configPath
+)
+
+$defaultConfigPath = "$($MyInvocation.MyCommand.Path).config.json"
+$configPath = if([string]::IsNullOrWhiteSpace($configPath) -eq $True) { $defaultConfigPath } else { $configPath }
+$config = $(if([string]::IsNullOrWhiteSpace($configPath) -eq $False) { try{ Get-Content -Path $configPath -ErrorAction Stop }catch{ '{}' } } else { '{}' }) | ConvertFrom-Json
+
+function Run(){
+    param(
+        [parameter(Position=0,Mandatory=$false)][string]$configPath,
+        [parameter(Position=0,Mandatory=$false)][switch]$dontUpdate,
+        [parameter(Position=0,Mandatory=$false)][switch]$dontBuild,
+        [parameter(Position=0,Mandatory=$false)][switch]$dontAnalyze,
+        [parameter(Position=0,Mandatory=$false)][switch]$dontTest,
+        [parameter(Position=0,Mandatory=$false)][switch]$dontCommit,
+        [parameter(Position=0,Mandatory=$false)][switch]$dontPush
+    )
+
+    $dontUpdate = if ($dontUpdate) { $True } elseif ($script:config.dontUpdate -eq 'true') { $True } else { $False }
+    $dontBuild = if ($dontBuild) { $True } elseif ($script:config.dontBuild -eq 'true') { $True } else { $False }
+    $dontAnalyze = if ($dontAnalyze) { $True } elseif ($config.dontAnalyze -eq 'true') { $True } else { $False }
+    $dontTest = if ($dontTest) { $True } elseif ($script:config.dontTest -eq 'true') { $True } else { $False }
+    $dontCommit = if ($dontCommit) { $True } elseif ($script:config.dontCommit -eq 'true') { $True } else { $False }
+    $dontPush = if ($dontPush) { $True } elseif ($script:config.dontPush -eq 'true') { $True } else { $False }
+
+    if(-not $dontUpdate) { Write-Output "Attempting to Update..."; TryUpdate } else { Write-Output "Skipping Update step..."}
+    if(-not $dontBuild) { Write-Output "Attempting to Build..."; TryBuild } else { Write-Output "Skipping Build step..."}
+    if(-not $dontAnalyze) { Write-Output "Attempting to Analyze..."; TryAnalyze } else { Write-Output "Skipping Analyze step..."}
+    if(-not $dontTest) { Write-Output "Attempting to Test..."; TryTest } else { Write-Output "Skipping Test step..."}
+    if(-not $dontCommit) { Write-Output "Attempting to Commit..."; TryCommit } else { Write-Output "Skipping Commit step..."}
+    if(-not $dontPush) { Write-Output "Attempting to Push..."; TryPush } else { Write-Output "Skipping Push step..."}
+} 
+Export-ModuleMember -Function Run
+
 $ScriptDir = Split-Path -parent $MyInvocation.MyCommand.Path
 $ImplModulesDir = "$ScriptDir\ExampleModules"
 
