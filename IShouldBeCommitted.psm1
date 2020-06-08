@@ -4,17 +4,16 @@ param(
 
 $defaultConfigPath = "$($MyInvocation.MyCommand.Path).config.json"
 $configPath = if([string]::IsNullOrWhiteSpace($configPath) -eq $True) { $defaultConfigPath } else { $configPath }
-$config = $(if([string]::IsNullOrWhiteSpace($configPath) -eq $False) { try{ Get-Content -Path $configPath -ErrorAction Stop }catch{ '{}' } } else { '{}' }) | ConvertFrom-Json
+$config = $(if([string]::IsNullOrWhiteSpace($configPath) -eq $False) { try { Get-Content -Path $configPath -ErrorAction Stop } catch { '{}' } } else { '{}' }) | ConvertFrom-Json
 
 function Run(){
     param(
-        [parameter(Position=0,Mandatory=$false)][string]$configPath,
-        [parameter(Position=1,Mandatory=$false)][switch]$dontUpdate,
-        [parameter(Position=2,Mandatory=$false)][switch]$dontBuild,
-        [parameter(Position=3,Mandatory=$false)][switch]$dontAnalyze,
-        [parameter(Position=4,Mandatory=$false)][switch]$dontTest,
-        [parameter(Position=5,Mandatory=$false)][switch]$dontCommit,
-        [parameter(Position=6,Mandatory=$false)][switch]$dontPush
+        [parameter(Position=0,Mandatory=$false)][switch]$dontUpdate,
+        [parameter(Position=1,Mandatory=$false)][switch]$dontBuild,
+        [parameter(Position=2,Mandatory=$false)][switch]$dontAnalyze,
+        [parameter(Position=3,Mandatory=$false)][switch]$dontTest,
+        [parameter(Position=4,Mandatory=$false)][switch]$dontCommit,
+        [parameter(Position=5,Mandatory=$false)][switch]$dontPush
     )
 
     $dontUpdate = if ($dontUpdate) { $True } elseif ($script:config.dontUpdate -eq 'true') { $True } else { $False }
