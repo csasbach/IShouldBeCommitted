@@ -20,7 +20,7 @@ Describe "Importing the module" {
         Remove-Item $global:defaultConfigPath
         Import-Module -Name $ScriptDir\IShouldBeCommitted.psm1
         New-Item $global:defaultConfigPath
-        Set-Content $global:defaultConfigPath "$content"
+        Set-Content $global:defaultConfigPath "$content" -NoNewLine
         InModuleScope IShouldBeCommitted {
             It "sets config to an empty object" {
                 -not $script:config.psobject.Properties.GetEnumerator().MoveNext() | Should -Be $True
@@ -31,7 +31,7 @@ Describe "Importing the module" {
     Context "When the module is imported with config path set in argument list" {
         $global:expectedConfigPath = "$($ScriptDir)\IShouldBeCommitted.psm1.mock.config.json"
         New-Item $global:expectedConfigPath
-        Set-Content $global:expectedConfigPath '{}'
+        Set-Content $global:expectedConfigPath '{}' -NoNewLine
         Import-Module -Name $ScriptDir\IShouldBeCommitted.psm1 -ArgumentList $global:expectedConfigPath
         InModuleScope IShouldBeCommitted {
             It "sets config path to the expected config path" {
@@ -48,7 +48,7 @@ Describe "Run" {
     Context "When the module is imported with no config values" {
         $global:expectedConfigPath = "$($ScriptDir)\IShouldBeCommitted.psm1.mock.config.json"
         New-Item $global:expectedConfigPath
-        Set-Content $global:expectedConfigPath '{}'
+        Set-Content $global:expectedConfigPath '{}' -NoNewLine
         Import-Module -Name $ScriptDir\IShouldBeCommitted.psm1 -ArgumentList $global:expectedConfigPath
         InModuleScope IShouldBeCommitted {
             Context "When Run is called with no switches" {
@@ -187,7 +187,7 @@ Describe "Run" {
     Context "When the module is imported with dontUpdate set to true in config file" {
         $global:expectedConfigPath = "$($ScriptDir)\IShouldBeCommitted.psm1.mock.config.json"
         New-Item $global:expectedConfigPath
-        Set-Content $global:expectedConfigPath '{ "dontUpdate" : "true" }'
+        Set-Content $global:expectedConfigPath '{ "dontUpdate" : "true" }' -NoNewLine
         Import-Module -Name $ScriptDir\IShouldBeCommitted.psm1 -ArgumentList $global:expectedConfigPath
         InModuleScope IShouldBeCommitted {
             Mock TryUpdate {return 0} -Verifiable
@@ -215,7 +215,7 @@ Describe "Run" {
     Context "When the module is imported with dontBuild set to true in config file" {
         $global:expectedConfigPath = "$($ScriptDir)\IShouldBeCommitted.psm1.mock.config.json"
         New-Item $global:expectedConfigPath
-        Set-Content $global:expectedConfigPath '{ "dontBuild" : "true" }'
+        Set-Content $global:expectedConfigPath '{ "dontBuild" : "true" }' -NoNewLine
         Import-Module -Name $ScriptDir\IShouldBeCommitted.psm1 -ArgumentList $global:expectedConfigPath
         InModuleScope IShouldBeCommitted {
             Mock TryUpdate {return 0} -Verifiable
@@ -243,7 +243,7 @@ Describe "Run" {
     Context "When the module is imported with dontAnalyze set to true in config file" {
         $global:expectedConfigPath = "$($ScriptDir)\IShouldBeCommitted.psm1.mock.config.json"
         New-Item $global:expectedConfigPath
-        Set-Content $global:expectedConfigPath '{ "dontAnalyze" : "true" }'
+        Set-Content $global:expectedConfigPath '{ "dontAnalyze" : "true" }' -NoNewLine
         Import-Module -Name $ScriptDir\IShouldBeCommitted.psm1 -ArgumentList $global:expectedConfigPath
         InModuleScope IShouldBeCommitted {
             Mock TryUpdate {return 0} -Verifiable
@@ -271,7 +271,7 @@ Describe "Run" {
     Context "When the module is imported with dontTest set to true in config file" {
         $global:expectedConfigPath = "$($ScriptDir)\IShouldBeCommitted.psm1.mock.config.json"
         New-Item $global:expectedConfigPath
-        Set-Content $global:expectedConfigPath '{ "dontTest" : "true" }'
+        Set-Content $global:expectedConfigPath '{ "dontTest" : "true" }' -NoNewLine
         Import-Module -Name $ScriptDir\IShouldBeCommitted.psm1 -ArgumentList $global:expectedConfigPath
         InModuleScope IShouldBeCommitted {
             Mock TryUpdate {return 0} -Verifiable
@@ -299,7 +299,7 @@ Describe "Run" {
     Context "When the module is imported with dontCommit set to true in config file" {
         $global:expectedConfigPath = "$($ScriptDir)\IShouldBeCommitted.psm1.mock.config.json"
         New-Item $global:expectedConfigPath
-        Set-Content $global:expectedConfigPath '{ "dontCommit" : "true" }'
+        Set-Content $global:expectedConfigPath '{ "dontCommit" : "true" }' -NoNewLine
         Import-Module -Name $ScriptDir\IShouldBeCommitted.psm1 -ArgumentList $global:expectedConfigPath
         InModuleScope IShouldBeCommitted {
             Mock TryUpdate {return 0} -Verifiable
@@ -327,7 +327,7 @@ Describe "Run" {
     Context "When the module is imported with dontPush set to true in config file" {
         $global:expectedConfigPath = "$($ScriptDir)\IShouldBeCommitted.psm1.mock.config.json"
         New-Item $global:expectedConfigPath
-        Set-Content $global:expectedConfigPath '{ "dontPush" : "true" }'
+        Set-Content $global:expectedConfigPath '{ "dontPush" : "true" }' -NoNewLine
         Import-Module -Name $ScriptDir\IShouldBeCommitted.psm1 -ArgumentList $global:expectedConfigPath
         InModuleScope IShouldBeCommitted {
             Mock TryUpdate {return 0} -Verifiable
