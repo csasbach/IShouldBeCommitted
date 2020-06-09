@@ -1,2 +1,2 @@
-invoke-pester -script ..\Push.test.ps1 -CodeCoverage `
+invoke-pester -script ..\Push.psm1.test.ps1 -CodeCoverage `
 @{Path = '..\Push.psm1'; Function = 'Push'}
